@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guide to Obtain Tax Identification Number in Armenia</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f9;
+        }
+
+        .container {
+            text-align: left;
+            border: 2px solid #007BFF;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            font-size: 18px;
+            color: black;
+            font-weight: bold;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+
+        .navigation button {
+            margin-left: 10px;
+            padding: 5px 10px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .blue-border {
+            border: 2px solid #007BFF;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #e6f3ff;
+            text-align: left;
+        }
+
+        .link {
+            color: #007BFF;
+            text-decoration: none;
+        }
+
+        .answer-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        .small-button {
+            padding: 5px 10px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">Guide to Obtain Tax Identification Number in Armenia</div>
+    <div class="container">
+        <div id="question" class="blue-border">
+            <p>Q1: Are you a citizen of the Republic of Armenia?</p>
+            <button class="answer-button" onclick="showNext('citizen-yes')">Yes</button>
+            <button class="answer-button" onclick="showNext('citizen-no')">No</button>
+        </div>
+
+        <div class="navigation">
+            <button class="small-button" onclick="goBack()">Back</button>
+            <button class="small-button" onclick="restart()">Back to the Start</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = {
+            'citizen-yes': `
+                <p>Q1: Do you have an Identification Card with Electronic Chip (eID) issued before February 15, 2023 and its PIN/PUK codes?</p>
+                <button class="answer-button" onclick="showNext('eid-yes')">Yes</button>
+                <button class="answer-button" onclick="showNext('eid-no')">No</button>
+            `,
+            'citizen-no': `
+                <p>Submit an electronic application to the State Revenue Committee to receive a Tax ID by sending an email to <a href="mailto:secretariat@petekamutner.am" class="link">secretariat@petekamutner.am</a> including the following:</p>
+                <ol>
+                    <li>Scan of the signed application for issuance of Tax ID <a href="https://www.arlis.am/DocumentView.aspx?docid=158525" target="_blank" class="link">(Form Link)</a>.</li>
+                    <li>Scan of your passport.</li>
+                    <li>Scan of your SSN.</li>
+                </ol>
+            `,
+            'eid-yes': `
+                <p>Step 1: Follow instructions on <a href="https://www.ekeng.am/hy/e_sign" target="_blank" class="link">ekeng.am</a> to activate and make the annual payment (3,000 AMD) for your electronic signature.</p>
+                <p>Step 2: Log in to the <a href="https://self-portal.taxservice.am/en/sign-in/" target="_blank" class="link">Unified System of Electronic Services for Individuals</a> tax portal, opt to sign in with "Yes em" system, and select "Log-in with ID" card. You will then be assigned a Tax ID.</p>
+            `,
+            'eid-no': `
+                <p>Q1: Do you have either of these?</p>
+                <ul>
+                    <li>Identification Card with Electronic Chip (eID) issued by February 15, 2023, but forgot PIN/PUK codes.</li>
+                    <li>Identification Card without Electronic Chip.</li>
+                </ul>
+                <button class="answer-button" onclick="showNext('eid-options-yes')">Yes</button>
+                <button class="answer-button" onclick="showNext('eid-options-no')">No</button>
+            `,
+            'eid-options-yes': `
+                <p>Step 1: Visit any of the three mobile service providers (Team Telecom, Ucom, Viva MTS) and obtain Mobile ID with your Passport/ID and social security number.</p>
+                <p>Step 2: Make the respective annual payment (3,000 AMD) to activate your electronic signature by following steps on <a href="https://www.ekeng.am/hy/payments" target="_blank" class="link">ekeng.am</a>.</p>
+                <p>Step 3: Log in to the <a href="https://self-portal.taxservice.am/en/sign-in/" target="_blank" class="link">Unified System of Electronic Services for Individuals</a> tax portal, opt to sign in with "Yes em" system, and select "Log-in with Mobile ID" card. You will then be assigned a Tax ID.</p>
+            `,
+            'eid-options-no': `
+                <p>Step 1: Book an appointment on the <a href="https://migration.e-gov.am/en/service/id_cards/info" target="_blank" class="link">Migration and Citizenship Services platform</a> to receive an ID card.</p>
+                <p>Step 2: Visit any of the three mobile service providers (Team Telecom, Ucom, Viva MTS) and obtain Mobile ID with your Passport/ID and social security number.</p>
+                <p>Step 3: Make the respective annual payment (3,000 AMD) to activate your electronic signature by following steps on <a href="https://www.ekeng.am/hy/payments" target="_blank" class="link">ekeng.am</a>.</p>
+                <p>Step 4: Log in to the <a href="https://self-portal.taxservice.am/en/sign-in/" target="_blank" class="link">Unified System of Electronic Services for Individuals</a> tax portal, opt to sign in with "Yes em" system, and select "Log-in with Mobile ID" card. You will then be assigned a Tax ID.</p>
+            `
+        };
+
+        const historyStack = [];
+
+        function showNext(step) {
+            const currentContent = document.getElementById('question').innerHTML;
+            historyStack.push(currentContent);
+            document.getElementById('question').innerHTML = questions[step];
+        }
+
+        function goBack() {
+            if (historyStack.length > 0) {
+                const previousContent = historyStack.pop();
+                document.getElementById('question').innerHTML = previousContent;
+            }
+        }
+
+        function restart() {
+            location.reload();
+        }
+    </script>
+</body>
+</html>
